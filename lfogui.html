@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<!--
+  We start with a basic html 'page' that is the size of the jweb object,
+  but has no scrollbars nor floating content.
+-->
+
+<head>
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0px;
+      border: 0;
+      overflow: hidden;  /*  Disable scrollbars */
+      display: block;    /* No floating content on sides */
+    }
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333333;
+    }
+
+    li {
+        float: left;
+    }
+
+    input {
+        width: 30px;
+        margin: 0;
+        padding: 0;
+    }
+
+    #matrix {
+        background-color: aquamarine;
+        height: 100%;
+        width: 100%;
+    }
+
+    .numbox-unclicked {
+        background-color: none;
+        user-select: none;
+        border: solid;
+        font-size: 12vw;
+    }
+
+    .numbox-clicked {
+        background-color: pink;
+        user-select: none;
+        border : solid;
+        font-size: 12vw;
+    }
+
+    .param-input-label {
+      width: 93%;
+      font-size: 5vw;
+    }
+
+    .lfo-input-label {
+      width: 40%;
+      font-size: 5vw;
+    }
+    
+  </style>
+</head>
+
+<body>
+  <div id="lfo-container"></div>
+
+  <script src="./react.js"></script>
+  <script src="./react-dom.js"></script>
+  <script src="./lfogui.js">
+  
+    
+  </script>
+
+</body>
+
+</html>
