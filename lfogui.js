@@ -1,7 +1,7 @@
 // const { createElement } = require("./react");
 
-const log = console.log;
-// const log = window.max.outlet;
+// const log = console.log;
+const log = window.max.outlet;
 
 const e = React.createElement;
 
@@ -82,6 +82,28 @@ function MasterLfoHandler(){
     const allSetters = [setVisibleArr, setShapeArr, setDjParamArr, setFreqArr, setAmpArr, setPhaseArr];
     const blankVals = [true, 'Sine', '1', '1', '0'];
 
+    React.useEffect(() => {
+        function handleLoad(event) {
+            window.max.getDict(event.detail, (dict) => {
+                
+            })
+        }
+
+        function handleSave(event) {
+            window.max.setDict(event.detail, {"data" : allArrays});
+        }
+
+
+        window.addEventListener('loadDict', handleLoad);
+
+        window.addEventListener('saveDict', handleSave);
+
+        return () => {
+            window.removeEventListener('loadDict', handleLoad);
+            window.removeEventListener('loadDict', handleSave);
+        };
+    }, []);
+
 
     createParamChanger = (arr, setArr, index) => {
         return (event) => {
@@ -160,7 +182,13 @@ function MasterLfoHandler(){
 }
 
 
+window.max.bindInlet("load", (dictId) => {
+    window.dispatchEvent(new CustomEvent('loadDict', {'detail' : dictId}));
+});
 
+window.max.bindInlet("save", (dictId) => {
+    window.dispatchEvent(new CustomEvent('saveDict', {'detail' : dictId}));
+})
 
 const root = ReactDOM.createRoot(document.getElementById('lfo-container'));
 root.render(e(MasterLfoHandler, null, null));
