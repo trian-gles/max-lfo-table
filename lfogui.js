@@ -7,9 +7,16 @@ const e = React.createElement;
 
 let lfos = [];
 const MAXLFOS = 20;
+const MAXENUMS = 20;
+const MAXENUMPOINTS = 10;
 
 const SHAPETYPES = ["Sine", "SawUp", "SawDown", "Tri", "Square"];
 const PARAMOPTIONS = ["attenuation", "melody_scope"];
+
+const ViewModes = Object.freeze({
+    MOD:   0,
+    ENUM:  1
+});
 
 
 
@@ -23,12 +30,50 @@ function ListItem(child){
 }
 
 function NumberBox(props){
-    return e('input', {type: "number", onChange: props.onChange, value: props.value}, null);
+    return e('input', {type: "number", onChange: props.onChange, value: props.value, className: props.className}, null);
+}
+
+function TextBox(props){
+    return e('input', {type: "text", value: props.value});
 }
 
 function Option(str){
     return e("option", null, str);
 }
+
+function Button(props){
+    return e('button', {onClick: props.onClick}, props.text);
+}
+
+function Switch(props){
+    return e('label', {className: 'switch'}, 
+        e('input', {type: 'checkbox', onClick: props.ontoggle}, null),
+        e('span', {className: 'slider round'}, null))
+}
+
+function CreateParamChanger(arr, setArr, index){
+    return (event) => {
+        let newArr = arr.slice();
+        newArr[index] = event.target.value;
+        setArr(newArr);
+        log(`${index} ${event.target.value}`);
+    }
+}
+
+function CreateMatrixParamChanger(matrix, setMatrix, i, j){
+    return (event) => {
+        var newMatrix = matrix.map(function(arr) {
+            return arr.slice();
+        });
+        newMatrix[i][j] = event.target.value;
+        setMatrix(newMatrix);
+        log(`${i}, ${j} ${event.target.value}`);
+    }
+}
+
+/////////////////////////
+// MODULATORS
+/////////////////////////
 
 function ControlType(){
     return e('select', {className: 'control-type'}, Option("LFO"));
@@ -41,6 +86,8 @@ function LfoShape(){
 function ParamName(){
     return e('select', {className: 'param-name'}, Option("djParam"), Option("melody_scope"));
 }
+
+
 
 function LfoRow(props){
     let content = e('ul', {className: 'lfo-item'}, 
@@ -55,21 +102,61 @@ function LfoRow(props){
     );
     if (props.visible){
         return content
-    }
-    ;
-    
-    
+    };
 }
 
-function Button(props){
-    return e('button', {onClick: props.onClick}, props.text);
+/////////////////////////
+// ENUMERATORS
+/////////////////////////
+
+
+// NOT A REACT FUNCTIONAL COMPONENT.  MERELY RETURNS AN ARRAY WHICH IS UNPACKED
+function EnumeratorItems(index, enumBreakPoints, setEnumBreakPoints, enumNames){
+    let items = []
+
+    for (let i = 0; i < MAXENUMPOINTS; i++){
+        log("hii")
+        log(enumNames[i])
+        items.push(ListItem(e(TextBox, {value: enumNames[i]}, null)));
+        // Add 1 to make up for the lower enum bound
+        items.push(ListItem(e(NumberBox, {onChange: CreateMatrixParamChanger(enumBreakPoints, setEnumBreakPoints, index, i + 1), value:enumBreakPoints[index][i + 1]}, null)));
+    }
+    return items;
 }
+
+function EnumeratorRow(props){
+    let content = e('ul', {className: 'lfo-item'},
+        ListItem(DropDown({onChange: props.setDjParam, value: props.djParam, options: PARAMOPTIONS})), 
+        ListItem(e(NumberBox, {onChange: props.setEnumItemCounts, value:props.enumItems, className: 'enum-count'}, null)),
+        ListItem(e(NumberBox, {onChange: CreateMatrixParamChanger(props.enumBreakPoints, props.setEnumBreakPoints, props.index, 0), value:props.enumBreakPoints[props.index][0]}, null)),
+        ...(EnumeratorItems(props.index, props.enumBreakPoints, props.setEnumBreakPoints, props.enumNames[props.index]).slice(0, props.enumItems * 2)),
+        ListItem(e(Button, {text:'+', onClick: props.addEnum}, null)), 
+        ListItem(e(Button, {text:'-', onClick: props.removeEnum}, null))
+    );
+    if (props.visible){
+        return content;
+    };
+}
+
+
 
 function MasterLfoHandler(){
 
     let initVisArr = Array(MAXLFOS).fill(false);
     initVisArr[0] = true;
-    const [visibleArr, setVisibleArr] = React.useState(initVisArr);
+
+    const [viewMode, setViewMode] = React.useState(ViewModes.MOD);
+    const toggleViewMode = () => {
+        log("toggle");
+        if (viewMode === ViewModes.MOD)
+            setViewMode(ViewModes.ENUM);
+        else
+            setViewMode(ViewModes.MOD);
+    };
+
+    /// MODULATOR ARRAYS
+
+    const [modVisibleArr, setModVisibleArr] = React.useState(initVisArr);
 
     const [shapeArr, setShapeArr] = React.useState(Array(MAXLFOS).fill('Sine'));
     const [djParamArr, setDjParamArr] = React.useState(Array(MAXLFOS).fill('djParam')); 
@@ -78,9 +165,32 @@ function MasterLfoHandler(){
     const [ampArr, setAmpArr] = React.useState(Array(MAXLFOS).fill('1'));
     const [phaseArr, setPhaseArr] = React.useState(Array(MAXLFOS).fill('0'));
 
-    const allArrays = [visibleArr, shapeArr, djParamArr, freqArr, ampArr, phaseArr];
-    const allSetters = [setVisibleArr, setShapeArr, setDjParamArr, setFreqArr, setAmpArr, setPhaseArr];
-    const blankVals = [true, 'Sine', '1', '1', '0'];
+    const allModArrays = [modVisibleArr, shapeArr, djParamArr, freqArr, ampArr, phaseArr];
+    const allModSetters = [setModVisibleArr, setShapeArr, setDjParamArr, setFreqArr, setAmpArr, setPhaseArr];
+    const modBlankVals = [true, 'Sine', '1', '1', '0'];
+
+
+    /// ENUMERATOR ARRAYS
+    const [enumItemCounts, setEnumItemCounts] = React.useState(Array(MAXENUMPOINTS).fill('2'));
+
+    let baseEnumBreakpoints = Array(MAXENUMS).fill(0).map(x => Array(MAXENUMPOINTS+ 1).fill(0));
+    for (let i = 0; i < MAXENUMS; i++){
+        for (let j=0; j < MAXENUMPOINTS + 1; j++){
+            baseEnumBreakpoints[i][j] = j;
+        }
+    }
+    const [enumBreakPoints, setEnumBreakPoints] = React.useState(baseEnumBreakpoints); 
+
+    let baseEnumNames = Array(MAXENUMS).fill(0).map(x => Array(MAXENUMPOINTS).fill('asdf'));
+    for (let i = 0; i < MAXENUMS; i++){
+        for (let j=0; j < MAXENUMPOINTS; j++){
+            baseEnumNames[i][j] = j;
+        }
+    }
+    const [enumNames, setEnumNames] = React.useState(baseEnumNames); 
+
+
+
 
     React.useEffect(() => {
         function handleLoad(event) {
@@ -90,7 +200,7 @@ function MasterLfoHandler(){
         }
 
         function handleSave(event) {
-            window.max.setDict(event.detail, {"data" : allArrays});
+            window.max.setDict(event.detail, {"data" : allModArrays});
         }
 
 
@@ -105,80 +215,96 @@ function MasterLfoHandler(){
     }, []);
 
 
-    createParamChanger = (arr, setArr, index) => {
-        return (event) => {
-            let newArr = arr.slice();
-            newArr[index] = event.target.value;
-            setArr(newArr);
-            log(`${index} ${event.target.value}`);
-        }
-    }
 
 
+    ///////
+    // Generate Modulators
+    ///////
 
-
-    log("Rendering")
-    let contents = []
+    let modContents = []
     for (var i = 0; i<MAXLFOS; i++){
         let id = i;
-        contents.push(
+        modContents.push(
             e(LfoRow, {
                 shape: shapeArr[i],
-                setShape: createParamChanger(shapeArr, setShapeArr, i),
+                setShape: CreateParamChanger(shapeArr, setShapeArr, i),
                 djParam: djParamArr[i],
-                setDjParam: createParamChanger(djParamArr, setDjParamArr, i),
+                setDjParam: CreateParamChanger(djParamArr, setDjParamArr, i),
 
                 freq: freqArr[i],
-                setFreq: createParamChanger(freqArr, setFreqArr, i),
+                setFreq: CreateParamChanger(freqArr, setFreqArr, i),
                 amp: ampArr[i],
-                setAmp: createParamChanger(ampArr, setAmpArr, i),
+                setAmp: CreateParamChanger(ampArr, setAmpArr, i),
                 phase: phaseArr[i],
-                setPhase: createParamChanger(phaseArr, setPhaseArr, i),
-                visible: visibleArr[i],
+                setPhase: CreateParamChanger(phaseArr, setPhaseArr, i),
+                visible: modVisibleArr[i],
                 addLfo: () => {
                     if (id < MAXLFOS - 1){
-                        if (visibleArr[id + 1]){
+                        if (modVisibleArr[id + 1]){
                             // need to delete the empty item to make room
-                            let emptyIndex = visibleArr.findIndex((item) => !item);
+                            let emptyIndex = modVisibleArr.findIndex((item) => !item);
                             if (emptyIndex != -1){
-                                log(emptyIndex);
-                                log(id + 1);
-                                
-                                for (var j = 0; j < allArrays.length; j++){
-                                    
-                                    let array = allArrays[j];
-                                    console.log(array);
+                                for (var j = 0; j < allModArrays.length; j++){
+                                    let array = allModArrays[j];
                                     // remove from all arrays
                                     array.splice(emptyIndex, 1);
-
                                     // add empty item at opened index
-                                    array.splice(id + 1, 0, blankVals[j]);
-                                    allSetters[j](array);
-                                    console.log(array);
-
+                                    array.splice(id + 1, 0, modBlankVals[j]);
+                                    allModSetters[j](array);
                                 }
                             }
-                            
-                            log(allArrays);
                         }
-
-                        let newArr = visibleArr.slice();
+                        let newArr = modVisibleArr.slice();
                         newArr[id + 1] = true;
-                        setVisibleArr(newArr);
-                        
+                        setModVisibleArr(newArr);
                     }
                 },
                 removeLfo: () => {
-                    let newArr = visibleArr.slice();
+                    let newArr = modVisibleArr.slice();
                     newArr[id] = false;
-                    setVisibleArr(newArr);
+                    setModVisibleArr(newArr);
                 }
-
             }, 
         null));
     }
 
-    return e('div', null, ...contents);
+
+    ///////
+    // Generate Enumerators
+    ///////
+    let enumContents = []
+    for (var i = 0; i<MAXLFOS; i++){
+        let id = i;
+        enumContents.push(
+            e(EnumeratorRow, {
+                visible: true, 
+                index: i,
+                enumItems: enumItemCounts[i],
+                setEnumItemCounts: CreateParamChanger(enumItemCounts, setEnumItemCounts, i),
+                enumBreakPoints: enumBreakPoints,
+                setEnumBreakPoints: setEnumBreakPoints,
+                enumNames: enumNames
+            }, null)
+        );
+    }
+
+
+    var grid;
+    var title;
+    if (viewMode === ViewModes.MOD){
+        grid = modContents;
+        title = "MODULATORS";
+    }
+    else {
+        grid = enumContents;
+        title = "ENUMERATORS";
+    }
+
+    return e('div', null, 
+        e(Switch, {ontoggle: toggleViewMode}, null),
+        e('h5', null, title),
+        e('div', null, ...grid)
+    );
 }
 
 

@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 2115.0, 234.0, 922.0, 715.0 ],
+		"rect" : [ 80.0, 96.0, 986.0, 715.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -53,7 +53,7 @@
 , 			{
 				"box" : 				{
 					"data" : 					{
-
+						"data" : [ [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine" ], [ "djParam", "djParam", "djParam", "djParam", "djParam", "djParam", "djParam", "djParam", "djParam", "djParam", "djParam", "djParam", "djParam", "djParam", "djParam", "djParam", "djParam", "djParam", "djParam", "djParam" ], [ "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1" ], [ "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1" ], [ "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0" ] ]
 					}
 ,
 					"id" : "obj-4",
@@ -228,8 +228,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 426.0, 69.0, 54.0, 22.0 ],
-					"text" : "save foo"
+					"patching_rect" : [ 371.0, 69.0, 104.0, 22.0 ],
+					"text" : "save localStorage"
 				}
 
 			}
@@ -252,7 +252,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 443.0, 124.0, 428.0, 246.0 ],
+					"patching_rect" : [ 319.0, 125.0, 552.0, 245.0 ],
 					"rendermode" : 0,
 					"url" : "file://lfogui.html"
 				}
