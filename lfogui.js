@@ -1,7 +1,10 @@
 // const { createElement } = require("./react");
-
-// const log = console.log;
-const log = window.max.outlet;
+const DEBUG = false;
+var log;
+if (DEBUG)
+    log = console.log;
+else
+    log = window.max.outlet;
 
 const e = React.createElement;
 
@@ -10,134 +13,15 @@ const MAXLFOS = 20;
 const MAXENUMS = 20;
 const MAXENUMPOINTS = 10;
 
-const SHAPETYPES = ["Sine", "SawUp", "SawDown", "Tri", "Square"];
-const PARAMOPTIONS = ["attenuation", "melody_scope"];
+
 
 const ViewModes = Object.freeze({
     MOD:   0,
     ENUM:  1
 });
 
-
-
-function DropDown(props) {
-    return e('select', {type: "number", onChange: props.onChange, value: props.value}, 
-        ...props.options.map((item) => Option(item)));
-}
-
-function ListItem(child){
-    return e('li', null, child)
-}
-
-function NumberBox(props){
-    return e('input', {type: "number", onChange: props.onChange, value: props.value, className: props.className}, null);
-}
-
-function TextBox(props){
-    return e('input', {type: "text", value: props.value});
-}
-
-function Option(str){
-    return e("option", null, str);
-}
-
-function Button(props){
-    return e('button', {onClick: props.onClick}, props.text);
-}
-
-function Switch(props){
-    return e('label', {className: 'switch'}, 
-        e('input', {type: 'checkbox', onClick: props.ontoggle}, null),
-        e('span', {className: 'slider round'}, null))
-}
-
-function CreateParamChanger(arr, setArr, index){
-    return (event) => {
-        let newArr = arr.slice();
-        newArr[index] = event.target.value;
-        setArr(newArr);
-        log(`${index} ${event.target.value}`);
-    }
-}
-
-function CreateMatrixParamChanger(matrix, setMatrix, i, j){
-    return (event) => {
-        var newMatrix = matrix.map(function(arr) {
-            return arr.slice();
-        });
-        newMatrix[i][j] = event.target.value;
-        setMatrix(newMatrix);
-        log(`${i}, ${j} ${event.target.value}`);
-    }
-}
-
-/////////////////////////
-// MODULATORS
-/////////////////////////
-
-function ControlType(){
-    return e('select', {className: 'control-type'}, Option("LFO"));
-}
-
-function LfoShape(){
-    return e('select', {className: 'lfo-shape'}, Option("Sine"), Option("SawUp"), Option("SawDown"), Option("Tri"), Option("Square"));
-}
-
-function ParamName(){
-    return e('select', {className: 'param-name'}, Option("djParam"), Option("melody_scope"));
-}
-
-
-
-function LfoRow(props){
-    let content = e('ul', {className: 'lfo-item'}, 
-        ListItem(ControlType()), 
-        ListItem(DropDown({onChange: props.setShape, value:props.shape, options: SHAPETYPES})), 
-        ListItem(DropDown({onChange: props.setDjParam, value: props.djParam, options: PARAMOPTIONS})), 
-        ListItem(e(NumberBox, {onChange:props.setFreq, value:props.freq}, null)), 
-        ListItem(e(NumberBox, {onChange:props.setAmp, value:props.amp}, null)), 
-        ListItem(e(NumberBox, {onChange:props.setPhase, value:props.phase}, null)), 
-        ListItem(e(Button, {text:'+', onClick: props.addLfo}, null)), 
-        ListItem(e(Button, {text:'-', onClick: props.removeLfo}, null))
-    );
-    if (props.visible){
-        return content
-    };
-}
-
-/////////////////////////
-// ENUMERATORS
-/////////////////////////
-
-
-// NOT A REACT FUNCTIONAL COMPONENT.  MERELY RETURNS AN ARRAY WHICH IS UNPACKED
-function EnumeratorItems(index, enumBreakPoints, setEnumBreakPoints, enumNames){
-    let items = []
-
-    for (let i = 0; i < MAXENUMPOINTS; i++){
-        log("hii")
-        log(enumNames[i])
-        items.push(ListItem(e(TextBox, {value: enumNames[i]}, null)));
-        // Add 1 to make up for the lower enum bound
-        items.push(ListItem(e(NumberBox, {onChange: CreateMatrixParamChanger(enumBreakPoints, setEnumBreakPoints, index, i + 1), value:enumBreakPoints[index][i + 1]}, null)));
-    }
-    return items;
-}
-
-function EnumeratorRow(props){
-    let content = e('ul', {className: 'lfo-item'},
-        ListItem(DropDown({onChange: props.setDjParam, value: props.djParam, options: PARAMOPTIONS})), 
-        ListItem(e(NumberBox, {onChange: props.setEnumItemCounts, value:props.enumItems, className: 'enum-count'}, null)),
-        ListItem(e(NumberBox, {onChange: CreateMatrixParamChanger(props.enumBreakPoints, props.setEnumBreakPoints, props.index, 0), value:props.enumBreakPoints[props.index][0]}, null)),
-        ...(EnumeratorItems(props.index, props.enumBreakPoints, props.setEnumBreakPoints, props.enumNames[props.index]).slice(0, props.enumItems * 2)),
-        ListItem(e(Button, {text:'+', onClick: props.addEnum}, null)), 
-        ListItem(e(Button, {text:'-', onClick: props.removeEnum}, null))
-    );
-    if (props.visible){
-        return content;
-    };
-}
-
+const MODULATORLABELS = ["-type-", "---shape---", "----param----", "freq", "amp", "phase"];
+const ENUMERATORLABELS = ["--parameter--", "-points-"];
 
 
 function MasterLfoHandler(){
@@ -147,7 +31,6 @@ function MasterLfoHandler(){
 
     const [viewMode, setViewMode] = React.useState(ViewModes.MOD);
     const toggleViewMode = () => {
-        log("toggle");
         if (viewMode === ViewModes.MOD)
             setViewMode(ViewModes.ENUM);
         else
@@ -167,10 +50,11 @@ function MasterLfoHandler(){
 
     const allModArrays = [modVisibleArr, shapeArr, djParamArr, freqArr, ampArr, phaseArr];
     const allModSetters = [setModVisibleArr, setShapeArr, setDjParamArr, setFreqArr, setAmpArr, setPhaseArr];
-    const modBlankVals = [true, 'Sine', '1', '1', '0'];
+    const modBlankVals = [true, PARAMOPTIONS[0], 'Sine', '1', '1', '0'];
 
 
     /// ENUMERATOR ARRAYS
+    const [enumVisibleArr, setEnumVisibleArr] = React.useState(initVisArr);
     const [enumItemCounts, setEnumItemCounts] = React.useState(Array(MAXENUMPOINTS).fill('2'));
 
     let baseEnumBreakpoints = Array(MAXENUMS).fill(0).map(x => Array(MAXENUMPOINTS+ 1).fill(0));
@@ -181,13 +65,28 @@ function MasterLfoHandler(){
     }
     const [enumBreakPoints, setEnumBreakPoints] = React.useState(baseEnumBreakpoints); 
 
-    let baseEnumNames = Array(MAXENUMS).fill(0).map(x => Array(MAXENUMPOINTS).fill('asdf'));
-    for (let i = 0; i < MAXENUMS; i++){
-        for (let j=0; j < MAXENUMPOINTS; j++){
-            baseEnumNames[i][j] = j;
-        }
+    const getBlankEnumBreakPointRow = () => {
+        let arr = []
+        for (let i=0; i< MAXENUMPOINTS + 1; i++)
+            arr.push(i)
+        return arr;
     }
+
+    const getBlankEnumNameRow = () => {return Array(MAXENUMPOINTS).fill('param')};
+
+    let baseEnumNames = Array(MAXENUMS).fill(0).map(x => Array(MAXENUMPOINTS).fill('param'));
     const [enumNames, setEnumNames] = React.useState(baseEnumNames); 
+
+    const allEnumArrays = [enumVisibleArr, enumItemCounts];
+    const allEnumArrSetters = [setEnumVisibleArr, setEnumItemCounts];
+
+    const allEnumMats = [enumBreakPoints, enumNames];
+    const allEnumMatSetters = [setEnumBreakPoints, setEnumNames];
+    const allGetEnumMatBlankVals = [getBlankEnumBreakPointRow, getBlankEnumNameRow]
+
+    const enumBlankVals = [true, 2];
+
+    const [render, rerender] = React.useState(false); // BAD.  I SHOULDN'T BE DOING THIS
 
 
 
@@ -210,7 +109,7 @@ function MasterLfoHandler(){
 
         return () => {
             window.removeEventListener('loadDict', handleLoad);
-            window.removeEventListener('loadDict', handleSave);
+            window.removeEventListener('saveDict', handleSave);
         };
     }, []);
 
@@ -240,8 +139,8 @@ function MasterLfoHandler(){
                 visible: modVisibleArr[i],
                 addLfo: () => {
                     if (id < MAXLFOS - 1){
-                        if (modVisibleArr[id + 1]){
-                            // need to delete the empty item to make room
+                        if (modVisibleArr[id + 1]){ 
+                            
                             let emptyIndex = modVisibleArr.findIndex((item) => !item);
                             if (emptyIndex != -1){
                                 for (var j = 0; j < allModArrays.length; j++){
@@ -254,15 +153,23 @@ function MasterLfoHandler(){
                                 }
                             }
                         }
-                        let newArr = modVisibleArr.slice();
-                        newArr[id + 1] = true;
-                        setModVisibleArr(newArr);
+                        else {
+                            for (var j = 0; j < allModArrays.length; j++){ // no space below, easy.
+                                let array = allModArrays[j];
+                                array[id + 1] = modBlankVals[j];
+                                allModSetters[j](array);
+                            }
+                        }
+                        rerender(!render);
                     }
                 },
                 removeLfo: () => {
-                    let newArr = modVisibleArr.slice();
-                    newArr[id] = false;
-                    setModVisibleArr(newArr);
+                    if (modVisibleArr.filter(x=>x).length > 1){
+                        let newArr = modVisibleArr.slice();
+                        newArr[id] = false;
+                        setModVisibleArr(newArr);
+                    }
+                    
                 }
             }, 
         null));
@@ -277,13 +184,64 @@ function MasterLfoHandler(){
         let id = i;
         enumContents.push(
             e(EnumeratorRow, {
-                visible: true, 
                 index: i,
                 enumItems: enumItemCounts[i],
                 setEnumItemCounts: CreateParamChanger(enumItemCounts, setEnumItemCounts, i),
                 enumBreakPoints: enumBreakPoints,
                 setEnumBreakPoints: setEnumBreakPoints,
-                enumNames: enumNames
+                enumNames: enumNames,
+                setEnumNames: setEnumNames,
+                visible: enumVisibleArr[i],
+                addEnum: () => {
+                    if (id < MAXLFOS - 1){
+                        if (enumVisibleArr[id + 1]){ // if we need to open up space
+                            let emptyIndex = enumVisibleArr.findIndex((item) => !item);
+                            if (emptyIndex != -1){
+                                for (var j = 0; j < allEnumArrays.length; j++){
+                                    let array = allEnumArrays[j];
+                                    // remove from all arrays
+                                    array.splice(emptyIndex, 1);
+                                    // add empty item at opened index
+                                    array.splice(id + 1, 0, enumBlankVals[j]);
+                                    allEnumArrSetters[j](array);
+                                }
+
+                                // Now do the same with matrices
+
+                                for (var j = 0; j < allEnumMats.length; j++){
+                                    let mat = allEnumMats[j];
+                                    mat.splice(emptyIndex, 1);
+                                    mat.splice(id + 1, 0, 0);
+                                    mat[id + 1] = allGetEnumMatBlankVals[j]();
+                                    allEnumMatSetters[j](mat);
+                                }
+                            }
+                        }
+                        else {
+                            for (var j = 0; j < allEnumArrays.length; j++){
+                                let array = allEnumArrays[j];
+                                array[id+1] = enumBlankVals[j];
+                                allEnumArrSetters[j](array);
+                            }
+
+                            // Now do the same with matrices
+
+                            for (var j = 0; j < allEnumMats.length; j++){
+                                let mat = allEnumMats[j];
+                                mat[id + 1] = allGetEnumMatBlankVals[j]();
+                                allEnumMatSetters[j](mat);
+                            }
+                        }
+                        rerender(!render);
+                    }
+                },
+                removeEnum: () => {
+                    if (enumVisibleArr.filter(x=>x).length > 1){
+                        let newArr = enumVisibleArr.slice();
+                        newArr[id] = false;
+                        setEnumVisibleArr(newArr);
+                    }
+                }
             }, null)
         );
     }
@@ -291,30 +249,36 @@ function MasterLfoHandler(){
 
     var grid;
     var title;
+    var labels;
     if (viewMode === ViewModes.MOD){
         grid = modContents;
         title = "MODULATORS";
+        labels = MODULATORLABELS;
     }
     else {
         grid = enumContents;
         title = "ENUMERATORS";
+        labels = ENUMERATORLABELS;
     }
 
     return e('div', null, 
         e(Switch, {ontoggle: toggleViewMode}, null),
         e('h5', null, title),
+        e('ul', null, ...labels.map(x => ListItem(Label(x)))),
         e('div', null, ...grid)
     );
 }
 
+if (!DEBUG){
+    window.max.bindInlet("load", (dictId) => {
+        window.dispatchEvent(new CustomEvent('loadDict', {'detail' : dictId}));
+    });
+    
+    window.max.bindInlet("save", (dictId) => {
+        window.dispatchEvent(new CustomEvent('saveDict', {'detail' : dictId}));
+    })
+}
 
-window.max.bindInlet("load", (dictId) => {
-    window.dispatchEvent(new CustomEvent('loadDict', {'detail' : dictId}));
-});
-
-window.max.bindInlet("save", (dictId) => {
-    window.dispatchEvent(new CustomEvent('saveDict', {'detail' : dictId}));
-})
 
 const root = ReactDOM.createRoot(document.getElementById('lfo-container'));
 root.render(e(MasterLfoHandler, null, null));
