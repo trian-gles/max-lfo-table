@@ -19,8 +19,8 @@ function TextBox(props){
     return e('input', {type: "text", value: props.value, onChange: props.onChange});
 }
 
-function Option(str){
-    return e("option", null, str);
+function Option(str, value){
+    return e("option", {value: value}, str);
 }
 
 function Button(props){
@@ -38,6 +38,7 @@ function CreateParamChanger(arr, setArr, index){
         let newArr = arr.slice();
         newArr[index] = event.target.value;
         setArr(newArr);
+        
         log(`${index} ${event.target.value}`);
     }
 }
@@ -50,5 +51,6 @@ function CreateMatrixParamChanger(matrix, setMatrix, i, j){
         newMatrix[i][j] = event.target.value;
         setMatrix(newMatrix);
         log(`${i}, ${j} ${event.target.value}`);
+        
     }
 }

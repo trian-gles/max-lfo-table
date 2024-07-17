@@ -42,7 +42,7 @@ function MasterLfoHandler(){
     const [modVisibleArr, setModVisibleArr] = React.useState(initVisArr);
 
     const [shapeArr, setShapeArr] = React.useState(Array(MAXLFOS).fill('Sine'));
-    const [djParamArr, setDjParamArr] = React.useState(Array(MAXLFOS).fill('djParam')); 
+    const [djParamArr, setDjParamArr] = React.useState(Array(MAXLFOS).fill('attenuation')); 
 
     const [freqArr, setFreqArr] = React.useState(Array(MAXLFOS).fill('1'));
     const [ampArr, setAmpArr] = React.useState(Array(MAXLFOS).fill('1'));
@@ -50,7 +50,7 @@ function MasterLfoHandler(){
 
     const allModArrays = [modVisibleArr, shapeArr, djParamArr, freqArr, ampArr, phaseArr];
     const allModSetters = [setModVisibleArr, setShapeArr, setDjParamArr, setFreqArr, setAmpArr, setPhaseArr];
-    const modBlankVals = [true, PARAMOPTIONS[0], 'Sine', '1', '1', '0'];
+    const modBlankVals = [true, SHAPETYPES[0], PARAMOPTIONS[0], '1', '1', '0'];
 
 
     /// ENUMERATOR ARRAYS
@@ -90,16 +90,28 @@ function MasterLfoHandler(){
 
 
 
-
     React.useEffect(() => {
         function handleLoad(event) {
+            
             window.max.getDict(event.detail, (dict) => {
-                
+                for (let i = 0; i<MAXLFOS; i++) {
+                    allModSetters[i](dict.data.modArrays[i]);
+                    allEnumArrSetters[i](dict.data.enumArrays[i]);
+                    allEnumMatSetters[i](dict.data.enumMats[i]);
+                }
             })
+            
+
+            
         }
 
         function handleSave(event) {
-            window.max.setDict(event.detail, {"data" : allModArrays});
+            let data = {
+                'modArrays' : allModArrays,
+                'enumArrays' : allEnumArrays,
+                'enumMats' : allEnumMats
+            }
+            window.max.setDict(event.detail, {"data" : data});
         }
 
 
@@ -111,7 +123,7 @@ function MasterLfoHandler(){
             window.removeEventListener('loadDict', handleLoad);
             window.removeEventListener('saveDict', handleSave);
         };
-    }, []);
+    }, [...allModArrays, ...allEnumArrays, ...allEnumMats]);
 
 
 
