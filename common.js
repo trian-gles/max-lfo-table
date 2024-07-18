@@ -12,7 +12,7 @@ function Label(text){
 }
 
 function NumberBox(props){
-    return e('input', {type: "number", onChange: props.onChange, value: props.value, className: props.className}, null);
+    return e('input', {type: "number", onChange: props.onChange, step: props.step, value: props.value, className: props.className}, null);
 }
 
 function TextBox(props){

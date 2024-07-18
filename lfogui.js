@@ -20,6 +20,10 @@ const ViewModes = Object.freeze({
     ENUM:  1
 });
 
+
+var modPhases = Array(MAXLFOS).fill(0);
+var lastUpdateTime = Date.now();
+
 const MODULATORLABELS = ["-type-", "---shape---", "----param----", "freq", "amp", "phase"];
 const ENUMERATORLABELS = ["--parameter--", "-points-"];
 
@@ -40,6 +44,8 @@ function MasterLfoHandler(){
     /// MODULATOR ARRAYS
 
     const [modVisibleArr, setModVisibleArr] = React.useState(initVisArr);
+
+    const [modCenterVals, setModCenterVals] = React.useState({});
 
     const [shapeArr, setShapeArr] = React.useState(Array(MAXLFOS).fill('Sine'));
     const [djParamArr, setDjParamArr] = React.useState(Array(MAXLFOS).fill('attenuation')); 
@@ -114,16 +120,50 @@ function MasterLfoHandler(){
             window.max.setDict(event.detail, {"data" : data});
         }
 
+        function handleParam(event) {
+
+            let name = event.detail[0];
+            let val = event.detail[1];
+            
+            // if none of the LFOs use this param, then we output it raw
+            let i = 0;
+            while (i < MAXLFOS){
+                if (modVisibleArr[i] && djParamArr[i] == name)
+                    break;
+                i++
+            }
+            if (i == MAXLFOS){
+                window.max.outlet(name + ' ' + val); 
+            }
+            
+            modCenterVals[name] = val;
+            setModCenterVals(modCenterVals);
+            
+            
+            
+        }
+
+        function handleTick(event) {
+            
+            let newTime = Date.now()
+            let delta = (newTime - lastUpdateTime) / 1000;
+            lastUpdateTime = newTime
+            operateModulators(modVisibleArr, djParamArr, modCenterVals, freqArr, ampArr, shapeArr, modPhases, delta);
+        }
+
 
         window.addEventListener('loadDict', handleLoad);
-
         window.addEventListener('saveDict', handleSave);
+        window.addEventListener('tick', handleTick);
+        window.addEventListener('param', handleParam);
 
         return () => {
             window.removeEventListener('loadDict', handleLoad);
             window.removeEventListener('saveDict', handleSave);
+            window.removeEventListener('tick', handleTick);
+            window.removeEventListener('param', handleParam);
         };
-    }, [...allModArrays, ...allEnumArrays, ...allEnumMats]);
+    }, [...allModArrays, ...allEnumArrays, ...allEnumMats, modCenterVals]);
 
 
 
@@ -288,7 +328,15 @@ if (!DEBUG){
     
     window.max.bindInlet("save", (dictId) => {
         window.dispatchEvent(new CustomEvent('saveDict', {'detail' : dictId}));
-    })
+    });
+
+    window.max.bindInlet("param", (paramName, val) => {
+        window.dispatchEvent(new CustomEvent('param', {'detail' : [paramName, val]}));
+    });
+
+    setInterval(() => {
+        window.dispatchEvent(new CustomEvent('tick'));
+    }, 200);
 }
 
 

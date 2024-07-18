@@ -18,8 +18,8 @@ function EnumeratorItems(index, enumBreakPoints, setEnumBreakPoints, enumNames, 
 function EnumeratorRow(props){
     let content = e('ul', {className: 'lfo-item'},
         ListItem(DropDown({onChange: props.setDjParam, value: props.djParam, options: PARAMOPTIONS})), 
-        ListItem(e(NumberBox, {onChange: props.setEnumItemCounts, value:props.enumItems, className: 'enum-count'}, null)),
-        ListItem(e(NumberBox, {onChange: CreateMatrixParamChanger(props.enumBreakPoints, props.setEnumBreakPoints, props.index, 0), value:props.enumBreakPoints[props.index][0]}, null)),
+        ListItem(e(NumberBox, {onChange: props.setEnumItemCounts, step:1, value:props.enumItems, className: 'enum-count'}, null)),
+        ListItem(e(NumberBox, {onChange: CreateMatrixParamChanger(props.enumBreakPoints, props.setEnumBreakPoints, props.index, 0), value:props.enumBreakPoints[props.index][0], step:0.1}, null)),
         ...(EnumeratorItems(props.index, props.enumBreakPoints, props.setEnumBreakPoints, props.enumNames, props.setEnumNames).slice(0, props.enumItems * 2)),
         ListItem(e(Button, {text:'+', onClick: props.addEnum}, null)), 
         ListItem(e(Button, {text:'-', onClick: props.removeEnum}, null))
