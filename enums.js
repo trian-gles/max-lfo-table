@@ -28,3 +28,17 @@ function EnumeratorRow(props){
         return content;
     };
 }
+
+// FIX THIS
+function enumerate(name, inval, count, keys, vals){
+    let output = "OUT OF RANGE";
+    for (let i=0; i < count; i++){
+        if (inval >= keys[i]){
+            output = vals[i - 1];
+            break
+        }
+    }
+
+    window.max.outlet(name + " " + output);
+}
+

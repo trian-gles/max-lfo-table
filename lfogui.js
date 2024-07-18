@@ -120,12 +120,36 @@ function MasterLfoHandler(){
             window.max.setDict(event.detail, {"data" : data});
         }
 
+        
+        // only called internally by 1. Handler after modulator processing 2. LFO outputs
+        function handleEnum(event){
+            let name = event.detail[0];
+            let val = event.detail[1];
+
+            // if none of the Enums use this param, then we output it
+            let i = 0;
+            while (i < MAXENUMS){
+                if (enumVisibleArr[i] && enumNames[i] == name)
+                    break;
+                i++
+            }
+            if (i == MAXENUMS){
+                window.max.outlet(name + ' ' + val);
+            }
+            else {
+                window.max.outlet(name + ' ' + val);
+            }
+
+            
+        }
+
+
         function handleParam(event) {
 
             let name = event.detail[0];
             let val = event.detail[1];
             
-            // if none of the LFOs use this param, then we output it raw
+            // if none of the LFOs use this param, then we send it straight to the enum
             let i = 0;
             while (i < MAXLFOS){
                 if (modVisibleArr[i] && djParamArr[i] == name)
@@ -133,7 +157,7 @@ function MasterLfoHandler(){
                 i++
             }
             if (i == MAXLFOS){
-                window.max.outlet(name + ' ' + val); 
+                window.dispatchEvent(new CustomEvent('enum', {'detail' : [name, val]}));
             }
             
             modCenterVals[name] = val;
@@ -156,12 +180,14 @@ function MasterLfoHandler(){
         window.addEventListener('saveDict', handleSave);
         window.addEventListener('tick', handleTick);
         window.addEventListener('param', handleParam);
+        window.addEventListener('enum', handleEnum);
 
         return () => {
             window.removeEventListener('loadDict', handleLoad);
             window.removeEventListener('saveDict', handleSave);
             window.removeEventListener('tick', handleTick);
             window.removeEventListener('param', handleParam);
+            window.removeEventListener('enum', handleEnum);
         };
     }, [...allModArrays, ...allEnumArrays, ...allEnumMats, modCenterVals]);
 

@@ -52,18 +52,17 @@ function operateModulators(visibleArr, paramNames, centers, freqs, amps, waveTyp
             if (centers.hasOwnProperty(name)){
                 center = centers[name];   
             }
-            let output = operateModulator(name, center, freqs[i], amps[i], waveTypes[i], phaseArr, i, delta);
-            window.max.outlet(output);
+            let output = operateModulator(center, freqs[i], amps[i], waveTypes[i], phaseArr, i, delta);
+            window.dispatchEvent(new CustomEvent('enum', {'detail' : [name, output]}));
         }
     }
 }
 
-function operateModulator(paramName, center, freq, amp, waveType, phaseArr, phaseI, delta){
+function operateModulator(center, freq, amp, waveType, phaseArr, phaseI, delta){
     
     let oldPhase = phaseArr[phaseI];
     let newPhase = (oldPhase + freq * delta) % 1.00;
     
     phaseArr[phaseI] = newPhase;
-    let outputVal = indexWave(waveType, newPhase) * amp + center;
-    return paramName + ' ' + outputVal.toString();
+    return indexWave(waveType, newPhase) * amp + center;
 }
