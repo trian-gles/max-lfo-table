@@ -3,9 +3,9 @@
 /////////////////////////
 
 var SHAPETYPES = ["Sine", "SawUp", "SawDown", "Tri", "Square"];
-const PARAMOPTIONS = ["pulse_length", "eventfulness", "event_length", "metriclarity", 
+const MODPARAMOPTIONS = ["stream", "pulse_length", "eventfulness", "event_length", "metriclarity", 
     "harmoniclarity", "melodic_cohesion", "melody_scope", "tonic_pitch", "pitch_center", "pitch_range", "dynamics",
-    "attenuation", "chordal_weight"]
+    "attenuation", "chordal_weight", "tonality-profile", "ostinato-buffer", "ostinato", "meter", "scale"];
 
 function ControlType(){
     return e('select', {className: 'control-type'}, Option("LFO"));
@@ -17,7 +17,7 @@ function LfoRow(props){
     let content = e('ul', {className: 'lfo-item'}, 
         ListItem(ControlType()), 
         ListItem(DropDown({onChange: props.setShape, value:props.shape, options: SHAPETYPES})), 
-        ListItem(DropDown({onChange: props.setDjParam, value: props.djParam, options: PARAMOPTIONS})), 
+        ListItem(DropDown({onChange: props.setDjParam, value: props.djParam, options: MODPARAMOPTIONS})), 
         ListItem(e(NumberBox, {onChange:props.setFreq, value:props.freq, step: 0.1}, null)), 
         ListItem(e(NumberBox, {onChange:props.setAmp, value:props.amp, step:0.1}, null)), 
         ListItem(e(NumberBox, {onChange:props.setPhase, value:props.phase, step:0.1}, null)), 
@@ -32,7 +32,7 @@ function LfoRow(props){
 function indexWave(type, phase){
     switch (type){
         case "Sine":
-            return Math.sin(phase * Math.PI * 2);
+            return (Math.sin(phase * Math.PI * 2)/2) + 1;
         case "SawUp":
             return phase;
         case "SawDown":

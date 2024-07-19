@@ -56,12 +56,13 @@ function MasterLfoHandler(){
 
     const allModArrays = [modVisibleArr, shapeArr, djParamArr, freqArr, ampArr, phaseArr];
     const allModSetters = [setModVisibleArr, setShapeArr, setDjParamArr, setFreqArr, setAmpArr, setPhaseArr];
-    const modBlankVals = [true, SHAPETYPES[0], PARAMOPTIONS[0], '1', '1', '0'];
+    const modBlankVals = [true, SHAPETYPES[0], MODPARAMOPTIONS[0], '1', '1', '0'];
 
 
     /// ENUMERATOR ARRAYS
     const [enumVisibleArr, setEnumVisibleArr] = React.useState(initVisArr);
     const [enumItemCounts, setEnumItemCounts] = React.useState(Array(MAXENUMPOINTS).fill('2'));
+    const [enumDjParamArr, setEnumDjParamArr] = React.useState(Array(MAXENUMPOINTS).fill('attenuation')); 
 
     let baseEnumBreakpoints = Array(MAXENUMS).fill(0).map(x => Array(MAXENUMPOINTS+ 1).fill(0));
     for (let i = 0; i < MAXENUMS; i++){
@@ -83,8 +84,8 @@ function MasterLfoHandler(){
     let baseEnumNames = Array(MAXENUMS).fill(0).map(x => Array(MAXENUMPOINTS).fill('param'));
     const [enumNames, setEnumNames] = React.useState(baseEnumNames); 
 
-    const allEnumArrays = [enumVisibleArr, enumItemCounts];
-    const allEnumArrSetters = [setEnumVisibleArr, setEnumItemCounts];
+    const allEnumArrays = [enumVisibleArr, enumItemCounts, enumDjParamArr];
+    const allEnumArrSetters = [setEnumVisibleArr, setEnumItemCounts, setEnumDjParamArr];
 
     const allEnumMats = [enumBreakPoints, enumNames];
     const allEnumMatSetters = [setEnumBreakPoints, setEnumNames];
@@ -100,12 +101,20 @@ function MasterLfoHandler(){
         function handleLoad(event) {
             
             window.max.getDict(event.detail, (dict) => {
-                for (let i = 0; i<MAXLFOS; i++) {
+                
+                for (let i = 0; i<allModArrays.length; i++) {
                     allModSetters[i](dict.data.modArrays[i]);
+                }
+
+                for (let i = 0; i<allEnumArrays.length; i++) {
                     allEnumArrSetters[i](dict.data.enumArrays[i]);
+                }
+
+                for (let i = 0; i<allEnumMats.length; i++) {
                     allEnumMatSetters[i](dict.data.enumMats[i]);
                 }
             })
+            
             
 
             
@@ -129,7 +138,7 @@ function MasterLfoHandler(){
             // if none of the Enums use this param, then we output it
             let i = 0;
             while (i < MAXENUMS){
-                if (enumVisibleArr[i] && enumNames[i] == name)
+                if (enumVisibleArr[i] && enumDjParamArr[i] == name)
                     break;
                 i++
             }
@@ -137,7 +146,7 @@ function MasterLfoHandler(){
                 window.max.outlet(name + ' ' + val);
             }
             else {
-                window.max.outlet(name + ' ' + val);
+                enumerate(name, val, enumItemCounts[i], enumBreakPoints[i], enumNames[i]);
             }
 
             
@@ -270,6 +279,8 @@ function MasterLfoHandler(){
                 enumNames: enumNames,
                 setEnumNames: setEnumNames,
                 visible: enumVisibleArr[i],
+                djParam: enumDjParamArr[i],
+                setDjParam: CreateParamChanger(enumDjParamArr, setEnumDjParamArr, i),
                 addEnum: () => {
                     if (id < MAXLFOS - 1){
                         if (enumVisibleArr[id + 1]){ // if we need to open up space

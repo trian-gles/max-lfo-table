@@ -3,9 +3,10 @@
 /////////////////////////
 
 
+
 // NOT A REACT FUNCTIONAL COMPONENT.  MERELY RETURNS AN ARRAY WHICH IS UNPACKED
 function EnumeratorItems(index, enumBreakPoints, setEnumBreakPoints, enumNames, setEnumNames){
-    let items = []
+    let items = [];
 
     for (let i = 0; i < MAXENUMPOINTS; i++){
         items.push(ListItem(e(TextBox, {onChange: CreateMatrixParamChanger(enumNames, setEnumNames, index, i), value: enumNames[index][i]}, null)));
@@ -17,7 +18,7 @@ function EnumeratorItems(index, enumBreakPoints, setEnumBreakPoints, enumNames, 
 
 function EnumeratorRow(props){
     let content = e('ul', {className: 'lfo-item'},
-        ListItem(DropDown({onChange: props.setDjParam, value: props.djParam, options: PARAMOPTIONS})), 
+        ListItem(DropDown({onChange: props.setDjParam, value: props.djParam, options: MODPARAMOPTIONS})), 
         ListItem(e(NumberBox, {onChange: props.setEnumItemCounts, step:1, value:props.enumItems, className: 'enum-count'}, null)),
         ListItem(e(NumberBox, {onChange: CreateMatrixParamChanger(props.enumBreakPoints, props.setEnumBreakPoints, props.index, 0), value:props.enumBreakPoints[props.index][0], step:0.1}, null)),
         ...(EnumeratorItems(props.index, props.enumBreakPoints, props.setEnumBreakPoints, props.enumNames, props.setEnumNames).slice(0, props.enumItems * 2)),
@@ -29,12 +30,13 @@ function EnumeratorRow(props){
     };
 }
 
-// FIX THIS
+
 function enumerate(name, inval, count, keys, vals){
     let output = "OUT OF RANGE";
-    for (let i=0; i < count; i++){
-        if (inval >= keys[i]){
-            output = vals[i - 1];
+    for (let i=0; i < count + 1; i++){
+        if (inval <= keys[i]){
+            if (i > 0)
+                output = vals[i - 1];
             break
         }
     }
