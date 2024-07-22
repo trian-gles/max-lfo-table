@@ -64,7 +64,10 @@ function operateModulator(center, freq, amp, waveType, phaseArr, phaseI, delta, 
     let oldPhase = phaseArr[phaseI];
     let newPhase = (oldPhase + freq * delta) % 1.00;
     let unscaled = indexWave(waveType, newPhase);
-    document.getElementById(`slider-${name}`).value = unscaled;
+    let el = document.getElementById(`slider-${name}`);
+    
+    if (el)
+        el.value = unscaled;
     
     phaseArr[phaseI] = newPhase;
     return  unscaled * amp + center;
