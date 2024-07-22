@@ -21,6 +21,7 @@ function LfoRow(props){
         ListItem(e(NumberBox, {onChange:props.setFreq, value:props.freq, step: 0.1}, null)), 
         ListItem(e(NumberBox, {onChange:props.setAmp, value:props.amp, step:0.1}, null)), 
         ListItem(e(NumberBox, {onChange:props.setPhase, value:props.phase, step:0.1}, null)), 
+        ListItem(e("input", {type: 'range', min: 0, max: 1, step: 0.01, readonly: true, id: `slider-${props.djParam}`})),
         ListItem(e(Button, {text:'+', onClick: props.addLfo}, null)), 
         ListItem(e(Button, {text:'-', onClick: props.removeLfo}, null))
     );
@@ -32,7 +33,7 @@ function LfoRow(props){
 function indexWave(type, phase){
     switch (type){
         case "Sine":
-            return (Math.sin(phase * Math.PI * 2)/2) + 1;
+            return (Math.sin(phase * Math.PI * 2) / 2) + 0.5;
         case "SawUp":
             return phase;
         case "SawDown":
@@ -52,17 +53,19 @@ function operateModulators(visibleArr, paramNames, centers, freqs, amps, waveTyp
             if (centers.hasOwnProperty(name)){
                 center = centers[name];   
             }
-            let output = operateModulator(center, freqs[i], amps[i], waveTypes[i], phaseArr, i, delta);
+            let output = operateModulator(center, freqs[i], amps[i], waveTypes[i], phaseArr, i, delta, name);
             window.dispatchEvent(new CustomEvent('enum', {'detail' : [name, output]}));
         }
     }
 }
 
-function operateModulator(center, freq, amp, waveType, phaseArr, phaseI, delta){
+function operateModulator(center, freq, amp, waveType, phaseArr, phaseI, delta, name){
     
     let oldPhase = phaseArr[phaseI];
     let newPhase = (oldPhase + freq * delta) % 1.00;
+    let unscaled = indexWave(waveType, newPhase);
+    document.getElementById(`slider-${name}`).value = unscaled;
     
     phaseArr[phaseI] = newPhase;
-    return indexWave(waveType, newPhase) * amp + center;
+    return  unscaled * amp + center;
 }
