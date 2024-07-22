@@ -23,10 +23,9 @@ const ViewModes = Object.freeze({
 
 var modPhases = Array(MAXLFOS).fill(0);
 var firstUpdateTime = Date.now();
-var lastUpdateTime = Date.now();
 
-const MODULATORLABELS = ["-type-", "---shape---", "----param----", "freq", "amp", "phase"];
-const ENUMERATORLABELS = ["--parameter--", "-points-"];
+const MODULATORLABELS = ["-type-", "---shape---", "-------param-------", "--freq--", "--amp--", "--phase--"];
+const ENUMERATORLABELS = ["---parameter---", "-# points-"];
 
 
 function MasterLfoHandler(){
@@ -179,11 +178,8 @@ function MasterLfoHandler(){
         }
 
         function handleTick(event) {
-            
-            let newTime = Date.now()
-            let delta = (newTime - lastUpdateTime) / 1000;
-            lastUpdateTime = newTime
-            operateModulators(modVisibleArr, djParamArr, modCenterVals, freqArr, ampArr, shapeArr, modPhases, delta);
+            let time = (Date.now() - firstUpdateTime) / 1000;
+            operateModulators(modVisibleArr, djParamArr, modCenterVals, freqArr, ampArr, shapeArr, phaseArr, time);
         }
 
 

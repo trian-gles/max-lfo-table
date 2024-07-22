@@ -16,7 +16,7 @@ function NumberBox(props){
 }
 
 function TextBox(props){
-    return e('input', {type: "text", value: props.value, onChange: props.onChange});
+    return e('input', {type: "text", value: props.value, onChange: props.onChange, id: props.id});
 }
 
 function Option(str, value){
@@ -33,12 +33,12 @@ function Switch(props){
         e('span', {className: 'slider round'}, null))
 }
 
-function CreateParamChanger(arr, setArr, index){
+function CreateParamChanger(arr, setArr, index, cb=() => {}){
     return (event) => {
         let newArr = arr.slice();
         newArr[index] = event.target.value;
         setArr(newArr);
-        
+        cb();
         log(`${index} ${event.target.value}`);
     }
 }

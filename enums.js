@@ -52,6 +52,6 @@ function enumerate(name, inval, count, keys, vals){
     }
     
 
-    //window.max.outlet(name + " " + output);
+    window.max.outlet(name + " " + output);
 }
 

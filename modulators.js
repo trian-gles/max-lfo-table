@@ -45,7 +45,7 @@ function indexWave(type, phase){
     }
 }
 
-function operateModulators(visibleArr, paramNames, centers, freqs, amps, waveTypes, phaseArr, delta){
+function operateModulators(visibleArr, paramNames, centers, freqs, amps, waveTypes, phaseArr, time){
     for (let i=0; i<paramNames.length; i++){
         if (visibleArr[i]){
             let name = paramNames[i];
@@ -53,22 +53,20 @@ function operateModulators(visibleArr, paramNames, centers, freqs, amps, waveTyp
             if (centers.hasOwnProperty(name)){
                 center = centers[name];   
             }
-            let output = operateModulator(center, freqs[i], amps[i], waveTypes[i], phaseArr, i, delta, name);
+            let output = operateModulator(center, freqs[i], amps[i], waveTypes[i], phaseArr, i, name, time);
             window.dispatchEvent(new CustomEvent('enum', {'detail' : [name, output]}));
         }
     }
 }
 
-function operateModulator(center, freq, amp, waveType, phaseArr, phaseI, delta, name){
+function operateModulator(center, freq, amp, waveType, phaseArr, phaseI, name, time){
     
-    let oldPhase = phaseArr[phaseI];
-    let newPhase = (oldPhase + freq * delta) % 1.00;
-    let unscaled = indexWave(waveType, newPhase);
+    let phase = (time * freq + parseFloat(phaseArr[phaseI])) % 1.00;
+    let unscaled = indexWave(waveType, phase);
     let el = document.getElementById(`slider-${name}`);
     
     if (el)
         el.value = unscaled;
     
-    phaseArr[phaseI] = newPhase;
     return  unscaled * amp + center;
 }
