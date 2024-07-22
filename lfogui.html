@@ -32,7 +32,7 @@
 
     
     input[type=number] {
-        width: 30px;
+        width: 50px;
         margin: 0;
         padding: 0;
     }
@@ -41,6 +41,7 @@
         width: 60px;
         margin: 0;
         padding: 0;
+        font-weight: bold;
     }
 
     #matrix {
@@ -50,14 +51,12 @@
     }
 
     .numbox-unclicked {
-        background-color: none;
         user-select: none;
         border: solid;
         font-size: 12vw;
     }
 
     .numbox-clicked {
-        background-color: pink;
         user-select: none;
         border : solid;
         font-size: 12vw;
@@ -152,6 +151,21 @@
       border-color: #333333;
       border-width: 1px;
     }
+
+    @keyframes pulse-animation {
+      0% {
+        color: black;
+      }
+      100% {
+        color: red;
+      }
+    }
+
+    #pulse {
+      animation: pulse-animation 0.2s normal;
+    }
+
+
     
   </style>
 </head>

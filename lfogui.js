@@ -22,6 +22,7 @@ const ViewModes = Object.freeze({
 
 
 var modPhases = Array(MAXLFOS).fill(0);
+var firstUpdateTime = Date.now();
 var lastUpdateTime = Date.now();
 
 const MODULATORLABELS = ["-type-", "---shape---", "----param----", "freq", "amp", "phase"];
@@ -166,6 +167,7 @@ function MasterLfoHandler(){
                 i++
             }
             if (i == MAXLFOS){
+                
                 window.dispatchEvent(new CustomEvent('enum', {'detail' : [name, val]}));
             }
             
@@ -354,7 +356,7 @@ function MasterLfoHandler(){
         e(Switch, {ontoggle: toggleViewMode}, null),
         e('h5', null, title),
         e('ul', null, ...labels.map(x => ListItem(Label(x)))),
-        e('div', null, ...grid)
+        e('div', {id: 'grid'}, ...grid)
     );
 }
 
