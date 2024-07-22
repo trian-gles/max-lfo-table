@@ -51,7 +51,7 @@ function enumerate(name, inval, count, keys, vals){
           });
     }
     
-
-    window.max.outlet(name + " " + output);
+    if (name !== "NONE")
+        window.max.outlet(name + " " + output);
 }
 

@@ -47,7 +47,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 493.0, 444.0, 161.0, 35.0 ],
-					"text" : "\"harmoniclarity 0.572005391276114\""
+					"text" : "\"harmoniclarity 0.1955362124045653\""
 				}
 
 			}
@@ -81,7 +81,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 1054.0, 325.0, 150.0, 60.0 ],
+					"patching_rect" : [ 1039.0, 50.0, 150.0, 60.0 ],
 					"text" : "You can use the `phase` control to phase offset two LFOs of the same frequency"
 				}
 
@@ -143,7 +143,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 115.0, 201.0, 197.0, 47.0 ],
-					"text" : "This parameter is defined in the modulators, and when sent will act as the center value for that LFO"
+					"text" : "This parameter is defined in the modulators, and when sent will act as the low value for that LFO"
 				}
 
 			}
@@ -301,7 +301,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 438.52631402015686, 108.0, 611.105266809463501, 325.0 ],
+					"patching_rect" : [ 438.52631402015686, 115.0, 643.105266809463501, 318.0 ],
 					"rendermode" : 0,
 					"url" : "file://lfogui.html"
 				}

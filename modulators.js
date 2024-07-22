@@ -3,7 +3,7 @@
 /////////////////////////
 
 var SHAPETYPES = ["Sine", "SawUp", "SawDown", "Tri", "Square"];
-const MODPARAMOPTIONS = ["stream", "pulse_length", "eventfulness", "event_length", "metriclarity", 
+const MODPARAMOPTIONS = ["NONE", "stream", "pulse_length", "eventfulness", "event_length", "metriclarity", 
     "harmoniclarity", "melodic_cohesion", "melody_scope", "tonic_pitch", "pitch_center", "pitch_range", "dynamics",
     "attenuation", "chordal_weight", "tonality-profile", "ostinato-buffer", "ostinato", "meter", "scale"];
 
@@ -54,7 +54,8 @@ function operateModulators(visibleArr, paramNames, centers, freqs, amps, waveTyp
                 center = centers[name];   
             }
             let output = operateModulator(center, freqs[i], amps[i], waveTypes[i], phaseArr, i, name, time);
-            window.dispatchEvent(new CustomEvent('enum', {'detail' : [name, output]}));
+            if (name !== "NONE")
+                window.dispatchEvent(new CustomEvent('enum', {'detail' : [name, output]}));
         }
     }
 }

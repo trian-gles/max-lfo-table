@@ -48,7 +48,7 @@ function MasterLfoHandler(){
     const [modCenterVals, setModCenterVals] = React.useState({});
 
     const [shapeArr, setShapeArr] = React.useState(Array(MAXLFOS).fill('Sine'));
-    const [djParamArr, setDjParamArr] = React.useState(Array(MAXLFOS).fill('attenuation')); 
+    const [djParamArr, setDjParamArr] = React.useState(Array(MAXLFOS).fill('NONE')); 
 
     const [freqArr, setFreqArr] = React.useState(Array(MAXLFOS).fill('1'));
     const [ampArr, setAmpArr] = React.useState(Array(MAXLFOS).fill('1'));
