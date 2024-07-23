@@ -91,7 +91,7 @@ function MasterLfoHandler(){
     const allEnumMatSetters = [setEnumBreakPoints, setEnumNames];
     const allGetEnumMatBlankVals = [getBlankEnumBreakPointRow, getBlankEnumNameRow]
 
-    const enumBlankVals = [true, 2];
+    const enumBlankVals = [true, 2, MODPARAMOPTIONS[0]];
 
     const [render, rerender] = React.useState(false); // BAD.  I SHOULDN'T BE DOING THIS
 
