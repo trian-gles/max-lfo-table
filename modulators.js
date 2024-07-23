@@ -14,6 +14,12 @@ function ControlType(){
 
 
 function LfoRow(props){
+
+    
+    let center = props.centerVals[props.djParam];
+    if (!center)
+        center = 0;
+
     let content = e('ul', {className: 'lfo-item'}, 
         ListItem(ControlType()), 
         ListItem(DropDown({onChange: props.setShape, value:props.shape, options: SHAPETYPES})), 
@@ -21,6 +27,8 @@ function LfoRow(props){
         ListItem(e(NumberBox, {onChange:props.setFreq, value:props.freq, step: 0.1}, null)), 
         ListItem(e(NumberBox, {onChange:props.setAmp, value:props.amp, step:0.1}, null)), 
         ListItem(e(NumberBox, {onChange:props.setPhase, value:props.phase, step:0.1}, null)), 
+        ListItem(e("div", {className:"base-val"}, center.toString())),
+        ListItem(e("div", {className:"base-val"}, center + parseFloat(props.amp))),
         ListItem(e("input", {type: 'range', min: 0, max: 1, step: 0.01, readonly: true, id: `slider-${props.djParam}`})),
         ListItem(e(Button, {text:'+', onClick: props.addLfo}, null)), 
         ListItem(e(Button, {text:'-', onClick: props.removeLfo}, null))

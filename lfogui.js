@@ -24,7 +24,7 @@ const ViewModes = Object.freeze({
 var modPhases = Array(MAXLFOS).fill(0);
 var firstUpdateTime = Date.now();
 
-const MODULATORLABELS = ["-type-", "---shape---", "-------param-------", "--freq--", "--amp--", "--phase--"];
+const MODULATORLABELS = ["-type-", "---shape---", "-------param-------", "--freq--", "-amp-", "-phase-", "-min", "-max"];
 const ENUMERATORLABELS = ["---parameter---", "-# points-"];
 
 
@@ -172,7 +172,7 @@ function MasterLfoHandler(){
             
             modCenterVals[name] = val;
             setModCenterVals(modCenterVals);
-            
+            rerender(!render); // BAD!  SHOULD NOT BE DOING THIS!
             
             
         }
@@ -196,7 +196,7 @@ function MasterLfoHandler(){
             window.removeEventListener('param', handleParam);
             window.removeEventListener('enum', handleEnum);
         };
-    }, [...allModArrays, ...allEnumArrays, ...allEnumMats, modCenterVals]);
+    }, [...allModArrays, ...allEnumArrays, ...allEnumMats, modCenterVals, render]);
 
 
 
@@ -204,16 +204,18 @@ function MasterLfoHandler(){
     ///////
     // Generate Modulators
     ///////
-
     let modContents = []
     for (var i = 0; i<MAXLFOS; i++){
         let id = i;
+        
         modContents.push(
+            
             e(LfoRow, {
                 shape: shapeArr[i],
                 setShape: CreateParamChanger(shapeArr, setShapeArr, i),
                 djParam: djParamArr[i],
                 setDjParam: CreateParamChanger(djParamArr, setDjParamArr, i),
+                centerVals: modCenterVals,
 
                 freq: freqArr[i],
                 setFreq: CreateParamChanger(freqArr, setFreqArr, i),
