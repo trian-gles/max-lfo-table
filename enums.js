@@ -30,6 +30,16 @@ function EnumeratorRow(props){
     };
 }
 
+function denumerate(inval, count, keys, vals){
+    let output;
+    for (let i=0; i < count; i++){
+        if (inval === vals[i]){
+            output = (parseFloat(keys[i]) + parseFloat(keys[i+1])) / 2; // linear interpolate
+        }
+    }
+    return output;
+}
+
 
 function enumerate(name, inval, count, keys, vals){
     let output = "OUT OF RANGE";
