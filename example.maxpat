@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 264.0, 101.0, 1260.0, 869.0 ],
+		"rect" : [ 264.0, 92.0, 1260.0, 869.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -39,6 +39,42 @@
 		"subpatcher_template" : "",
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"bubble" : 1,
+					"id" : "obj-30",
+					"linecount" : 4,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 137.5, 440.0, 245.0, 64.0 ],
+					"text" : "this param is sent in its already enumerated form, so it will first be turned into   a number halfway between the enumeration boundaries"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-26",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 1019.0, 544.0, 32.0, 22.0 ],
+					"text" : "print"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-22",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 22.0, 444.0, 105.0, 22.0 ],
+					"text" : "param meter \"3 4\""
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-41",
 					"maxclass" : "message",
@@ -70,7 +106,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 660.0, 595.0, 157.0, 22.0 ],
-					"text" : "harmoniclarity 0.944068"
+					"text" : "harmoniclarity 0.000872"
 				}
 
 			}
@@ -82,7 +118,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 567.0, 595.0, 87.0, 22.0 ],
-					"text" : "meter 3 4"
+					"text" : "meter 7 8"
 				}
 
 			}
@@ -106,7 +142,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 345.0, 595.0, 133.0, 22.0 ],
-					"text" : "metriclarity 1.677953"
+					"text" : "metriclarity 69.973845"
 				}
 
 			}
@@ -183,12 +219,13 @@
 			}
 , 			{
 				"box" : 				{
+					"bubble" : 1,
 					"id" : "obj-7",
 					"linecount" : 3,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 109.0, 285.0, 197.0, 47.0 ],
+					"patching_rect" : [ 153.0, 274.0, 197.0, 51.0 ],
 					"text" : "This parameter is defined in the enumerators but not the modulators"
 				}
 
@@ -200,7 +237,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 146.0, 334.0, 94.0, 22.0 ],
+					"patching_rect" : [ 59.0, 256.0, 94.0, 22.0 ],
 					"text" : "param scale 1.6"
 				}
 
@@ -219,24 +256,26 @@
 			}
 , 			{
 				"box" : 				{
+					"bubble" : 1,
 					"id" : "obj-24",
 					"linecount" : 3,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 89.0, 358.0, 254.0, 47.0 ],
+					"patching_rect" : [ 133.0, 347.0, 254.0, 51.0 ],
 					"text" : "This parameter is not defined by either the Modulators or Enumerators, so it will be passed directly to the output"
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"bubble" : 1,
 					"id" : "obj-23",
-					"linecount" : 3,
+					"linecount" : 4,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 115.0, 201.0, 197.0, 47.0 ],
+					"patching_rect" : [ 159.0, 190.0, 197.0, 64.0 ],
 					"text" : "This parameter is defined in the modulators, and when sent will act as the low value for that LFO"
 				}
 
@@ -248,7 +287,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 89.0, 463.0, 254.0, 141.0 ],
+					"patching_rect" : [ 45.0, 564.0, 254.0, 141.0 ],
 					"text" : "The operation runs\n\nInput > Modulators > Enumerators > Output\n\nA parameter from the input not established by a Modulator will be passed directly to the Enumerators\n\nLikewise, the Enumerators will pass not established parameters"
 				}
 
@@ -260,7 +299,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 135.0, 259.0, 121.0, 22.0 ],
+					"patching_rect" : [ 48.0, 181.0, 121.0, 22.0 ],
 					"text" : "param metriclarity 40"
 				}
 
@@ -272,7 +311,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 115.0, 409.0, 129.0, 22.0 ],
+					"patching_rect" : [ 28.0, 331.0, 129.0, 22.0 ],
 					"text" : "param attenuation 200"
 				}
 
@@ -462,8 +501,31 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-2", 0 ],
+					"source" : [ "obj-22", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-15", 0 ],
+					"order" : 0,
 					"source" : [ "obj-25", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-22", 0 ],
+					"order" : 1,
+					"source" : [ "obj-25", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-26", 0 ],
+					"source" : [ "obj-27", 6 ]
 				}
 
 			}

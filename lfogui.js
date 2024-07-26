@@ -114,10 +114,6 @@ function MasterLfoHandler(){
                     allEnumMatSetters[i](dict.data.enumMats[i]);
                 }
             })
-            
-            
-
-            
         }
 
         function handleSave(event) {
@@ -157,7 +153,11 @@ function MasterLfoHandler(){
 
             let name = event.detail[0];
             let val = event.detail[1];
-            // NEED TO CHECK FOR INDEX OF THIS NAME IN ENUM MATRIX, AND IF IT IS THERE IT SHOULD DENUMERATE
+            // CHECK FOR INDEX OF THIS NAME IN ENUM MATRIX, AND IF IT IS THERE DENUMERATE
+            let index = enumDjParamArr.indexOf(name);
+            if (index != -1){
+                val = denumerate(val, enumItemCounts[index], enumBreakPoints[index], enumNames[index]);
+            }
             
             
             // if none of the LFOs use this param, then we send it straight to the enum

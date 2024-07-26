@@ -31,9 +31,10 @@ function EnumeratorRow(props){
 }
 
 function denumerate(inval, count, keys, vals){
-    let output;
+    let output = 0;
     for (let i=0; i < count; i++){
-        if (inval === vals[i]){
+        log(vals[i]);
+        if (inval == vals[i]){
             output = (parseFloat(keys[i]) + parseFloat(keys[i+1])) / 2; // linear interpolate
         }
     }

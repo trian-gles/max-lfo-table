@@ -40,6 +40,30 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-11",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 998.0, 270.0, 121.0, 22.0 ],
+					"text" : "Melodic Cohesion 30"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-9",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 921.0, 221.0, 143.0, 22.0 ],
+					"text" : "harmoniclarity 90.727661"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-8",
 					"linecount" : 2,
 					"maxclass" : "comment",
@@ -283,8 +307,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 219.583333333333371, 355.0, 126.0, 20.0 ],
-									"text" : "prepend melodic-cohesion"
+									"patching_rect" : [ 219.583333333333371, 355.0, 128.0, 20.0 ],
+									"text" : "prepend melodic_cohesion"
 								}
 
 							}
@@ -2237,7 +2261,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 68.8047869048537, 32.600006000000008, 465.200012000000015, 171.399993999999992 ],
+					"patching_rect" : [ 68.8047869048537, 24.600006000000008, 465.200012000000015, 171.399993999999992 ],
 					"varname" : "Djster.µbus",
 					"viewvisibility" : 1
 				}
@@ -2369,7 +2393,7 @@
 			"parameter_overrides" : 			{
 				"obj-1::obj-1" : 				{
 					"parameter_longname" : "Outset Pulses[1]",
-					"parameter_range" : [ 1, 56 ]
+					"parameter_range" : [ 1, 12 ]
 				}
 ,
 				"obj-1::obj-11" : 				{
