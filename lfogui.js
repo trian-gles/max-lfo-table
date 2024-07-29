@@ -24,7 +24,7 @@ const ViewModes = Object.freeze({
 var modPhases = Array(MAXLFOS).fill(0);
 var firstUpdateTime = Date.now();
 
-const MODULATORLABELS = ["-type-", "---shape---", "-------param-------", "--freq--", "-amp-", "-phase-", "-min", "-max"];
+const MODULATORLABELS = ["-type-", "---shape---", "-------param-------", "--freq--", "-min-", "-max", "-phase-", "center"];
 const ENUMERATORLABELS = ["---parameter---", "-# points-"];
 
 
@@ -51,11 +51,15 @@ function MasterLfoHandler(){
     const [djParamArr, setDjParamArr] = React.useState(Array(MAXLFOS).fill('NONE')); 
 
     const [freqArr, setFreqArr] = React.useState(Array(MAXLFOS).fill('1'));
-    const [ampArr, setAmpArr] = React.useState(Array(MAXLFOS).fill('1'));
+
+    // const [ampArr, setAmpArr] = React.useState(Array(MAXLFOS).fill('1'));
+    const [minArr, setMinArr] = React.useState(Array(MAXLFOS).fill('0'));
+    const [maxArr, setMaxArr] = React.useState(Array(MAXLFOS).fill('1'));
+
     const [phaseArr, setPhaseArr] = React.useState(Array(MAXLFOS).fill('0'));
 
-    const allModArrays = [modVisibleArr, shapeArr, djParamArr, freqArr, ampArr, phaseArr];
-    const allModSetters = [setModVisibleArr, setShapeArr, setDjParamArr, setFreqArr, setAmpArr, setPhaseArr];
+    const allModArrays = [modVisibleArr, shapeArr, djParamArr, freqArr, minArr, maxArr, phaseArr];
+    const allModSetters = [setModVisibleArr, setShapeArr, setDjParamArr, setFreqArr, setMinArr, setMaxArr, setPhaseArr];
     const modBlankVals = [true, SHAPETYPES[0], MODPARAMOPTIONS[0], '1', '1', '0'];
 
 
@@ -182,7 +186,7 @@ function MasterLfoHandler(){
 
         function handleTick(event) {
             let time = (Date.now() - firstUpdateTime) / 1000;
-            operateModulators(modVisibleArr, djParamArr, modCenterVals, freqArr, ampArr, shapeArr, phaseArr, time);
+            operateModulators(modVisibleArr, djParamArr, modCenterVals, freqArr, minArr, maxArr, shapeArr, phaseArr, time);
         }
 
 
@@ -222,8 +226,15 @@ function MasterLfoHandler(){
 
                 freq: freqArr[i],
                 setFreq: CreateParamChanger(freqArr, setFreqArr, i),
-                amp: ampArr[i],
-                setAmp: CreateParamChanger(ampArr, setAmpArr, i),
+
+                //amp: ampArr[i],
+                //setAmp: CreateParamChanger(ampArr, setAmpArr, i),
+
+                min: minArr[i],
+                setMin : CreateParamChanger(minArr, setMinArr, i),
+                max: maxArr[i],
+                setMax: CreateParamChanger(maxArr, setMaxArr, i),
+
                 phase: phaseArr[i],
                 setPhase: CreateParamChanger(phaseArr, setPhaseArr, i),
                 visible: modVisibleArr[i],
