@@ -17,13 +17,16 @@ function EnumeratorItems(index, enumBreakPoints, setEnumBreakPoints, enumNames, 
 }
 
 function EnumeratorRow(props){
+    let linkedText = props.linked ? "<- mods" : "";
+
     let content = e('ul', {className: 'lfo-item', id: `${props.djParam}-enum-row`},
         ListItem(DropDown({onChange: props.setDjParam, value: props.djParam, options: MODPARAMOPTIONS})), 
         ListItem(e(NumberBox, {onChange: props.setEnumItemCounts, step:1, value:props.enumItems, className: 'enum-count'}, null)),
         ListItem(e(NumberBox, {onChange: CreateMatrixParamChanger(props.enumBreakPoints, props.setEnumBreakPoints, props.index, 0), value:props.enumBreakPoints[props.index][0], step:0.1}, null)),
         ...(EnumeratorItems(props.index, props.enumBreakPoints, props.setEnumBreakPoints, props.enumNames, props.setEnumNames, props.djParam).slice(0, props.enumItems * 2)),
         ListItem(e(Button, {text:'+', onClick: props.addEnum}, null)), 
-        ListItem(e(Button, {text:'-', onClick: props.removeEnum}, null))
+        ListItem(e(Button, {text:'-', onClick: props.removeEnum}, null)),
+        ListItem(e("div", {className:"linked"}, linkedText))
     );
     if (props.visible){
         return content;
@@ -45,7 +48,6 @@ function denumerate(inval, count, keys, vals){
 function enumerate(name, inval, count, keys, vals){
     let output = "OUT OF RANGE";
     for (let i=0; i < count + 1; i++){
-        log(`Inval : ${inval}, breakpoint : ${keys[i]}`)
         if (inval <= keys[i]){
             if (i > 0)
                 output = vals[i - 1];

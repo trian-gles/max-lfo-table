@@ -60,7 +60,7 @@ function MasterLfoHandler(){
 
     const allModArrays = [modVisibleArr, shapeArr, djParamArr, freqArr, minArr, maxArr, phaseArr];
     const allModSetters = [setModVisibleArr, setShapeArr, setDjParamArr, setFreqArr, setMinArr, setMaxArr, setPhaseArr];
-    const modBlankVals = [true, SHAPETYPES[0], MODPARAMOPTIONS[0], '1', '1', '0'];
+    const modBlankVals = [true, SHAPETYPES[0], MODPARAMOPTIONS[0], '1', '0', '1', '0'];
 
 
     /// ENUMERATOR ARRAYS
@@ -238,6 +238,8 @@ function MasterLfoHandler(){
                 phase: phaseArr[i],
                 setPhase: CreateParamChanger(phaseArr, setPhaseArr, i),
                 visible: modVisibleArr[i],
+
+                linked: enumDjParamArr.includes(djParamArr[i]),
                 addLfo: () => {
                     if (id < MAXLFOS - 1){
                         if (modVisibleArr[id + 1]){ 
@@ -295,6 +297,7 @@ function MasterLfoHandler(){
                 visible: enumVisibleArr[i],
                 djParam: enumDjParamArr[i],
                 setDjParam: CreateParamChanger(enumDjParamArr, setEnumDjParamArr, i),
+                linked: djParamArr.includes(enumDjParamArr[i]),
                 addEnum: () => {
                     if (id < MAXLFOS - 1){
                         if (enumVisibleArr[id + 1]){ // if we need to open up space

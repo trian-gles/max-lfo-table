@@ -15,7 +15,7 @@ function ControlType(){
 
 function LfoRow(props){
 
-    
+    let linkedText = props.linked ? "-> enums" : "";
     let center = props.centerVals[props.djParam];
     if (!center)
         center = 0;
@@ -32,7 +32,8 @@ function LfoRow(props){
         ListItem(e("div", {className:"base-val"}, center.toString())),
         ListItem(e("input", {type: 'range', min: 0, max: 1, step: 0.01, readonly: true, id: `slider-${props.djParam}`})),
         ListItem(e(Button, {text:'+', onClick: props.addLfo}, null)), 
-        ListItem(e(Button, {text:'-', onClick: props.removeLfo}, null))
+        ListItem(e(Button, {text:'-', onClick: props.removeLfo}, null)),
+        ListItem(e("div", {className:"linked"}, linkedText)),
     );
     if (props.visible){
         return content
