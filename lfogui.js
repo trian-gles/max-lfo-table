@@ -123,6 +123,7 @@ function MasterLfoHandler(){
                 'enumMats' : allEnumMats
             }
             window.max.setDict(event.detail, {"data" : data});
+            window.max.outlet("saved");
         }
 
         
