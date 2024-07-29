@@ -31,7 +31,7 @@ function EnumeratorRow(props){
 }
 
 function denumerate(inval, count, keys, vals){
-    let output = 0;
+    let output = inval;
     for (let i=0; i < count; i++){
         log(vals[i]);
         if (inval == vals[i]){
@@ -45,6 +45,7 @@ function denumerate(inval, count, keys, vals){
 function enumerate(name, inval, count, keys, vals){
     let output = "OUT OF RANGE";
     for (let i=0; i < count + 1; i++){
+        log(`Inval : ${inval}, breakpoint : ${keys[i]}`)
         if (inval <= keys[i]){
             if (i > 0)
                 output = vals[i - 1];

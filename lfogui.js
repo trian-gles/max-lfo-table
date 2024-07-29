@@ -4,7 +4,7 @@ var log;
 if (DEBUG)
     log = console.log;
 else
-    log = window.max.outlet;
+    log = (msg) => {window.max.outlet("debug " + msg)};
 
 const e = React.createElement;
 
