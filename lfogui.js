@@ -24,7 +24,7 @@ const ViewModes = Object.freeze({
 var modPhases = Array(MAXLFOS).fill(0);
 var firstUpdateTime = Date.now();
 
-const MODULATORLABELS = ["-type-", "---shape---", "-------param-------", "--freq--", "-min-", "-max", "-phase-", "center"];
+const MODULATORLABELS = ["-type-", "---shape---", "-------param-------", "--timebase--", "-min-", "-max", "-phase-", "center"];
 const ENUMERATORLABELS = ["---parameter---", "-# points-"];
 
 
@@ -50,7 +50,7 @@ function MasterLfoHandler(){
     const [shapeArr, setShapeArr] = React.useState(Array(MAXLFOS).fill('Sine'));
     const [djParamArr, setDjParamArr] = React.useState(Array(MAXLFOS).fill('NONE')); 
 
-    const [freqArr, setFreqArr] = React.useState(Array(MAXLFOS).fill('1'));
+    const [timeArr, setTimeArr] = React.useState(Array(MAXLFOS).fill('1hz'));
 
     // const [ampArr, setAmpArr] = React.useState(Array(MAXLFOS).fill('1'));
     const [minArr, setMinArr] = React.useState(Array(MAXLFOS).fill('0'));
@@ -58,8 +58,8 @@ function MasterLfoHandler(){
 
     const [phaseArr, setPhaseArr] = React.useState(Array(MAXLFOS).fill('0'));
 
-    const allModArrays = [modVisibleArr, shapeArr, djParamArr, freqArr, minArr, maxArr, phaseArr];
-    const allModSetters = [setModVisibleArr, setShapeArr, setDjParamArr, setFreqArr, setMinArr, setMaxArr, setPhaseArr];
+    const allModArrays = [modVisibleArr, shapeArr, djParamArr, timeArr, minArr, maxArr, phaseArr];
+    const allModSetters = [setModVisibleArr, setShapeArr, setDjParamArr, setTimeArr, setMinArr, setMaxArr, setPhaseArr];
     const modBlankVals = [true, SHAPETYPES[0], MODPARAMOPTIONS[0], '1', '0', '1', '0'];
 
 
@@ -186,7 +186,7 @@ function MasterLfoHandler(){
 
         function handleTick(event) {
             let time = (Date.now() - firstUpdateTime) / 1000;
-            operateModulators(modVisibleArr, djParamArr, modCenterVals, freqArr, minArr, maxArr, shapeArr, phaseArr, time);
+            operateModulators(modVisibleArr, djParamArr, modCenterVals, timeArr, minArr, maxArr, shapeArr, phaseArr, time);
         }
 
 
@@ -224,8 +224,8 @@ function MasterLfoHandler(){
                 setDjParam: CreateParamChanger(djParamArr, setDjParamArr, i),
                 centerVals: modCenterVals,
 
-                freq: freqArr[i],
-                setFreq: CreateParamChanger(freqArr, setFreqArr, i),
+                freq: timeArr[i],
+                setFreq: CreateParamChanger(timeArr, setTimeArr, i),
 
                 //amp: ampArr[i],
                 //setAmp: CreateParamChanger(ampArr, setAmpArr, i),
