@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 533.0, 91.0, 930.0, 869.0 ],
+		"rect" : [ 533.0, 91.0, 1344.0, 869.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -39,6 +39,54 @@
 		"subpatcher_template" : "",
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-53",
+					"maxclass" : "button",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 737.0, 43.0, 24.0, 24.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-1",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 684.0, 146.0, 94.0, 22.0 ],
+					"text" : "prepend timesig"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-52",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 545.0, 135.0, 89.0, 22.0 ],
+					"text" : "prepend tempo"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-49",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 868.0, 96.0, 150.0, 33.0 ],
+					"text" : "ADD SUPPORT FOR MUSICAL TIMINGS"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-37",
 					"maxclass" : "newobj",
@@ -115,9 +163,9 @@
 					"patching_rect" : [ 643.0, 770.0, 40.0, 22.0 ],
 					"restore" : [ 						{
 							"data" : 							{
-								"enumArrays" : [ [ 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ "3", 2, 2, "2", "2", "2", "2", "2", "2", "2" ], [ "meter", "NONE", "NONE", "attenuation", "attenuation", "attenuation", "attenuation", "attenuation", "attenuation", "attenuation" ] ],
+								"enumArrays" : [ [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ "3", 2, 2, "2", "2", "2", "2", "2", "2", "2" ], [ "meter", "NONE", "NONE", "attenuation", "attenuation", "attenuation", "attenuation", "attenuation", "attenuation", "attenuation" ] ],
 								"enumMats" : [ [ [ 0, "1", "2", 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] ], [ [ "3 4", "4 4", "7 8", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ] ] ],
-								"modArrays" : [ [ 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine" ], [ "meter", "eventfulness", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE" ], [ "0.1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1" ], [ "0.5", "1", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0" ], [ "2.5", "0", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1" ], [ "0", null, "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0" ] ]
+								"modArrays" : [ [ 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine" ], [ "meter", "eventfulness", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE" ], [ "0.1hz", "1hz", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1" ], [ "0.5", "1", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0" ], [ "2.5", "0", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1" ], [ "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0" ] ]
 							}
 
 						}
@@ -136,9 +184,9 @@
 				"box" : 				{
 					"data" : 					{
 						"data" : 						{
-							"enumArrays" : [ [ 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ "3", 2, 2, "2", "2", "2", "2", "2", "2", "2" ], [ "meter", "NONE", "NONE", "attenuation", "attenuation", "attenuation", "attenuation", "attenuation", "attenuation", "attenuation" ] ],
+							"enumArrays" : [ [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ "3", 2, 2, "2", "2", "2", "2", "2", "2", "2" ], [ "meter", "NONE", "NONE", "attenuation", "attenuation", "attenuation", "attenuation", "attenuation", "attenuation", "attenuation" ] ],
 							"enumMats" : [ [ [ 0, "1", "2", 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ], [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] ], [ [ "3 4", "4 4", "7 8", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ], [ "param", "param", "param", "param", "param", "param", "param", "param", "param", "param" ] ] ],
-							"modArrays" : [ [ 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine" ], [ "meter", "eventfulness", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE" ], [ "0.1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1" ], [ "0.5", "1", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0" ], [ "2.5", "0", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1" ], [ "0", null, "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0" ] ]
+							"modArrays" : [ [ 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine", "Sine" ], [ "meter", "eventfulness", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE" ], [ "0.1hz", "1hz", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1" ], [ "0.5", "1", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0" ], [ "2.5", "0", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1" ], [ "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0" ] ]
 						}
 
 					}
@@ -173,50 +221,13 @@
 			}
 , 			{
 				"box" : 				{
-					"id" : "obj-9",
-					"linecount" : 2,
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 904.0, 80.0, 150.0, 33.0 ],
-					"text" : "FINISH THE SAVING THING!!!"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-48",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 4,
-					"outlettype" : [ "", "bang", "", "dictionary" ],
-					"patching_rect" : [ 129.0, 107.0, 50.5, 22.0 ],
-					"text" : "DJster",
-					"varname" : "DJster"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"id" : "obj-47",
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 9,
 					"outlettype" : [ "int", "int", "float", "float", "float", "", "int", "float", "" ],
-					"patching_rect" : [ 253.0, 520.0, 103.0, 22.0 ],
+					"patching_rect" : [ 744.815790414810181, 107.0, 103.0, 22.0 ],
 					"text" : "transport"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-46",
-					"linecount" : 4,
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 1045.5, 6.0, 153.0, 60.0 ],
-					"text" : "Should be an indicator for modulators if there is a corresponding enumerator and vice versa"
 				}
 
 			}
@@ -323,19 +334,20 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 569.0, 647.0, 87.0, 22.0 ],
-					"text" : "meter 7 8"
+					"text" : "meter 4 4"
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"id" : "obj-31",
+					"linecount" : 2,
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 485.0, 647.0, 80.0, 22.0 ],
-					"text" : "stream 0.364"
+					"patching_rect" : [ 485.0, 647.0, 80.0, 35.0 ],
+					"text" : "stream 0.207125"
 				}
 
 			}
@@ -347,7 +359,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 347.0, 647.0, 133.0, 22.0 ],
-					"text" : "metriclarity param2"
+					"text" : "metriclarity 20"
 				}
 
 			}
@@ -370,7 +382,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 522.0, 528.0, 268.0, 33.0 ],
+					"patching_rect" : [ 518.0, 541.0, 268.0, 33.0 ],
 					"text" : "we can only output symbols from jweb, so this turns them into lists"
 				}
 
@@ -382,7 +394,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 423.5, 539.0, 71.0, 22.0 ],
+					"patching_rect" : [ 423.5, 552.0, 71.0, 22.0 ],
 					"text" : "fromsymbol"
 				}
 
@@ -607,7 +619,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 403.52631402015686, 149.0, 774.105266809463501, 365.0 ],
+					"patching_rect" : [ 402.0, 174.0, 788.631580829620361, 367.0 ],
 					"rendermode" : 0,
 					"url" : "file://lfogui.html"
 				}
@@ -615,6 +627,13 @@
 			}
  ],
 		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-2", 0 ],
+					"source" : [ "obj-1", 0 ]
+				}
+
+			}
+, 			{
 				"patchline" : 				{
 					"destination" : [ "obj-27", 0 ],
 					"source" : [ "obj-10", 0 ]
@@ -759,7 +778,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-15", 0 ],
-					"order" : 1,
+					"order" : 2,
 					"source" : [ "obj-37", 0 ]
 				}
 
@@ -767,6 +786,14 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-16", 0 ],
+					"order" : 1,
+					"source" : [ "obj-37", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-47", 0 ],
 					"order" : 0,
 					"source" : [ "obj-37", 0 ]
 				}
@@ -797,8 +824,36 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"source" : [ "obj-47", 5 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-52", 0 ],
+					"source" : [ "obj-47", 4 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
 					"source" : [ "obj-5", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-2", 0 ],
+					"source" : [ "obj-52", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-47", 0 ],
+					"source" : [ "obj-53", 0 ]
 				}
 
 			}
@@ -810,304 +865,7 @@
 
 			}
  ],
-		"parameters" : 		{
-			"obj-48::obj-1" : [ "Outset Pulses", "Outset Pulses", 0 ],
-			"obj-48::obj-104" : [ "Tonality Profile", "Tonality Profile", 0 ],
-			"obj-48::obj-109" : [ "Play", "Play", 0 ],
-			"obj-48::obj-11" : [ "Eventfulness", "Eventfulness", 0 ],
-			"obj-48::obj-110" : [ "Event Length", "Event Length", 0 ],
-			"obj-48::obj-122" : [ "Choice", "Choice", 0 ],
-			"obj-48::obj-128" : [ "Ostinato Buffer", "Ostinato Buffer", 0 ],
-			"obj-48::obj-13" : [ "Melody Scope", "Melody Scope", 0 ],
-			"obj-48::obj-136" : [ "Sorted", "Sorted", 0 ],
-			"obj-48::obj-155" : [ "Use Transport", "Use Transport", 0 ],
-			"obj-48::obj-158" : [ "Subdivision", "Subdivision", 0 ],
-			"obj-48::obj-16" : [ "Scale", "Scale", 0 ],
-			"obj-48::obj-187" : [ "meters", "meters", 0 ],
-			"obj-48::obj-188" : [ "Pitchsets", "Pitchsets", 0 ],
-			"obj-48::obj-206" : [ "Chordal Weight", "Chordal Weight", 0 ],
-			"obj-48::obj-217" : [ "Overlap", "Overlap", 0 ],
-			"obj-48::obj-22" : [ "Pulse Length", "Pulse Length", 0 ],
-			"obj-48::obj-24" : [ "Harmoniclarity", "Harmoniclarity", 0 ],
-			"obj-48::obj-25" : [ "Pitch Center", "Pitch Center", 0 ],
-			"obj-48::obj-26" : [ "Pitch Range", "Pitch Range", 0 ],
-			"obj-48::obj-27" : [ "Dynamics", "Dynamics", 0 ],
-			"obj-48::obj-28" : [ "Attenuation", "Attenuation", 0 ],
-			"obj-48::obj-29" : [ "Ostinato", "Ostinato", 0 ],
-			"obj-48::obj-32" : [ "live.text[1]", "Clear Scales", 0 ],
-			"obj-48::obj-47" : [ "Silent Downbeat", "Silent Downbeat", 0 ],
-			"obj-48::obj-49" : [ "Sync", "Sync", 0 ],
-			"obj-48::obj-5" : [ "Metriclarity", "Metriclarity", 0 ],
-			"obj-48::obj-52" : [ "Tonic Pitch", "Tonic Pitch", 0 ],
-			"obj-48::obj-53" : [ "Precision", "Precision", 0 ],
-			"obj-48::obj-56" : [ "Precision[1]", "Preset Tab", 0 ],
-			"obj-48::obj-77" : [ "Melodic Cohesion", "Melodic Cohesion", 0 ],
-			"obj-48::obj-87" : [ "Sync Type", "menu", 0 ],
-			"obj-48::obj-88" : [ "Scala Browser", "Scala Browser", 0 ],
-			"parameterbanks" : 			{
-				"0" : 				{
-					"index" : 0,
-					"name" : "",
-					"parameters" : [ "-", "-", "-", "-", "-", "-", "-", "-" ]
-				}
-
-			}
-,
-			"parameter_overrides" : 			{
-				"obj-48::obj-1" : 				{
-					"parameter_range" : [ 1, 8 ]
-				}
-,
-				"obj-48::obj-13" : 				{
-					"parameter_unitstyle" : 7
-				}
-,
-				"obj-48::obj-25" : 				{
-					"parameter_unitstyle" : 8
-				}
-,
-				"obj-48::obj-26" : 				{
-					"parameter_unitstyle" : 7
-				}
-,
-				"obj-48::obj-52" : 				{
-					"parameter_unitstyle" : 8
-				}
-
-			}
-,
-			"inherited_shortname" : 1
-		}
-,
-		"dependency_cache" : [ 			{
-				"name" : "AdditiveMeter2.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "Autobusk-µPlayer.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/DJster/core",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/DJster/core",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "DJster.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/DJster",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/DJster",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "Inner-Equation.5.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "Inside.3.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "Mod.2.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "Pof_(Qi)(i=0toz-r-1).2.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "Pof_(Qj)(j=1toz).2.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "Pof_(Qz+1-k)(k=0tor).2.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "Qz+1-k2.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "Qz-r2.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "TIE.7.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "Total-Internal-Equation.6.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "bytecount.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/DJster/core",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/DJster/core",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "composite-meters.txt",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"type" : "TEXT",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "dispenser.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "djster.accum.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/DJster/core",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/DJster/core",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "dumper.2.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "harmonic-energy-profile.txt",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/DJster/Profiles",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/DJster/Profiles",
-				"type" : "TEXT",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "harmonicity.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/DJster/Tonality",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/DJster/Tonality",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "indigestibility.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/DJster/Tonality",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/DJster/Tonality",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "meter-subpatch.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/DJster/core",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/DJster/core",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "mxj.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "outset.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/DJster/core",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/DJster/core",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "packback.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/abstractions",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/abstractions",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "platform.js",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/javascript",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/javascript",
-				"type" : "TEXT",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "primefactors.txt",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/maps/microMaps",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/maps/microMaps",
-				"type" : "TEXT",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "psi-functions.txt",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"type" : "TEXT",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "reader.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "reader2.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/DJster/dispenser",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "scalaFileBase.js",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/javascript",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/javascript",
-				"type" : "TEXT",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "scale-subpatch-exp.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/patchers/DJster/core",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/patchers/DJster/core",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "scriptingname.js",
-				"bootpath" : "~/Documents/Max 8/Packages/MaxScore/javascript",
-				"patcherrelativepath" : "../../Max 8/Packages/MaxScore/javascript",
-				"type" : "TEXT",
-				"implicit" : 1
-			}
- ],
+		"dependency_cache" : [  ],
 		"autosave" : 0
 	}
 

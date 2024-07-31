@@ -39,12 +39,12 @@ function Switch(props){
         e('span', {className: 'slider round'}, null))
 }
 
-function CreateParamChanger(arr, setArr, index, cb=() => {}){
+function CreateParamChanger(arr, setArr, index, postCB=() => {}, preCB=(val) => val){
     return (event) => {
         let newArr = arr.slice();
-        newArr[index] = event.target.value;
+        newArr[index] = preCB(event.target.value);
         setArr(newArr);
-        cb();
+        postCB();
         log(`${index} ${event.target.value}`);
     }
 }

@@ -28,6 +28,8 @@ const MODULATORLABELS = ["-type-", "---shape---", "-------param-------", "--time
 const ENUMERATORLABELS = ["---parameter---", "-# points-"];
 
 
+
+
 function MasterLfoHandler(){
 
     let initVisArr = Array(MAXLFOS).fill(false);
@@ -47,10 +49,13 @@ function MasterLfoHandler(){
 
     const [modCenterVals, setModCenterVals] = React.useState({});
 
+    const [bpm, setBpm] = React.useState(100);
+    const [beatsInMeasure, setBeatsInMeasure] = React.useState(4);
+
     const [shapeArr, setShapeArr] = React.useState(Array(MAXLFOS).fill('Sine'));
     const [djParamArr, setDjParamArr] = React.useState(Array(MAXLFOS).fill('NONE')); 
 
-    const [timeArr, setTimeArr] = React.useState(Array(MAXLFOS).fill('1hz'));
+    const [freqArr, setFreqArr] = React.useState(Array(MAXLFOS).fill('1hz'));
 
     // const [ampArr, setAmpArr] = React.useState(Array(MAXLFOS).fill('1'));
     const [minArr, setMinArr] = React.useState(Array(MAXLFOS).fill('0'));
@@ -58,8 +63,8 @@ function MasterLfoHandler(){
 
     const [phaseArr, setPhaseArr] = React.useState(Array(MAXLFOS).fill('0'));
 
-    const allModArrays = [modVisibleArr, shapeArr, djParamArr, timeArr, minArr, maxArr, phaseArr];
-    const allModSetters = [setModVisibleArr, setShapeArr, setDjParamArr, setTimeArr, setMinArr, setMaxArr, setPhaseArr];
+    const allModArrays = [modVisibleArr, shapeArr, djParamArr, freqArr, minArr, maxArr, phaseArr];
+    const allModSetters = [setModVisibleArr, setShapeArr, setDjParamArr, setFreqArr, setMinArr, setMaxArr, setPhaseArr];
     const modBlankVals = [true, SHAPETYPES[0], MODPARAMOPTIONS[0], '1', '0', '1', '0'];
 
 
@@ -186,7 +191,15 @@ function MasterLfoHandler(){
 
         function handleTick(event) {
             let time = (Date.now() - firstUpdateTime) / 1000;
-            operateModulators(modVisibleArr, djParamArr, modCenterVals, timeArr, minArr, maxArr, shapeArr, phaseArr, time);
+            operateModulators(modVisibleArr, djParamArr, modCenterVals, freqArr, minArr, maxArr, shapeArr, phaseArr, time, bpm, beatsInMeasure);
+        }
+
+        function handleBpm(event) {
+            setBpm(event.detail);
+        }
+
+        function handleTimeSig(event) {
+            setBeatsInMeasure(parseFloat(event.detail[0]) * parseFloat(event.detail[1])/ 4);
         }
 
 
@@ -195,6 +208,8 @@ function MasterLfoHandler(){
         window.addEventListener('tick', handleTick);
         window.addEventListener('param', handleParam);
         window.addEventListener('enum', handleEnum);
+        window.addEventListener('tempo', handleBpm);
+        window.addEventListener('timesig', handleTimeSig);
 
         return () => {
             window.removeEventListener('loadDict', handleLoad);
@@ -202,8 +217,10 @@ function MasterLfoHandler(){
             window.removeEventListener('tick', handleTick);
             window.removeEventListener('param', handleParam);
             window.removeEventListener('enum', handleEnum);
+            window.removeEventListener('tempo', handleBpm);
+            window.removeEventListener('timesig', handleTimeSig);
         };
-    }, [...allModArrays, ...allEnumArrays, ...allEnumMats, modCenterVals, render]);
+    }, [...allModArrays, ...allEnumArrays, ...allEnumMats, modCenterVals, render, bpm, beatsInMeasure]);
 
 
 
@@ -224,8 +241,8 @@ function MasterLfoHandler(){
                 setDjParam: CreateParamChanger(djParamArr, setDjParamArr, i),
                 centerVals: modCenterVals,
 
-                freq: timeArr[i],
-                setFreq: CreateParamChanger(timeArr, setTimeArr, i),
+                freq: freqArr[i],
+                setFreq: CreateParamChanger(freqArr, setFreqArr, i),
 
                 //amp: ampArr[i],
                 //setAmp: CreateParamChanger(ampArr, setAmpArr, i),
@@ -386,6 +403,14 @@ if (!DEBUG){
 
     window.max.bindInlet("param", (paramName, val) => {
         window.dispatchEvent(new CustomEvent('param', {'detail' : [paramName, val]}));
+    });
+
+    window.max.bindInlet("tempo", (val) => {
+        window.dispatchEvent(new CustomEvent('tempo', {'detail' : val}));
+    });
+
+    window.max.bindInlet("timesig", (top, bottom) => {
+        window.dispatchEvent(new CustomEvent('timesig', {'detail' : [top, bottom]}));
     });
 
     setInterval(() => {
